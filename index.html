@@ -11,7 +11,7 @@
     <!-- Google Fonts: Noto Sans TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -63,6 +63,18 @@
             transform: scale(1.15);
             background-color: #0369a1;
         }
+        input[type="range"].slider-emerald::-webkit-slider-thumb {
+            background-color: #059669;
+        }
+        input[type="range"].slider-emerald::-webkit-slider-thumb:hover {
+            background-color: #047857;
+        }
+        input[type="range"].slider-amber::-webkit-slider-thumb {
+            background-color: #d97706;
+        }
+        input[type="range"].slider-amber::-webkit-slider-thumb:hover {
+            background-color: #b45309;
+        }
         /* Tooltip 提示框 */
         .tooltip-container {
             position: relative;
@@ -71,7 +83,7 @@
         }
         .tooltip-text {
             visibility: hidden;
-            width: 260px;
+            width: 270px;
             background-color: #0f172a;
             color: #f8fafc;
             text-align: left;
@@ -108,13 +120,13 @@
         @media (max-width: 640px) {
             .tooltip-text {
                 left: auto;
-                right: -20px;
+                right: -15px;
                 transform: none;
-                width: 230px;
+                width: 235px;
             }
             .tooltip-text::after {
                 left: auto;
-                right: 24px;
+                right: 20px;
             }
         }
     </style>
@@ -125,49 +137,49 @@
     <header class="bg-navy-900 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div class="flex items-center gap-3">
-                <div class="bg-emerald-500/20 border border-emerald-400/30 p-2 rounded-xl">
+                <div class="bg-emerald-500/20 border border-emerald-400/30 p-2 rounded-xl shrink-0">
                     <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
                 <div>
                     <h1 class="text-lg sm:text-xl font-bold tracking-tight">台灣勞保與勞退退休金：一次領 vs. 月領 決策模擬器</h1>
-                    <p class="text-xs text-slate-300 mt-0.5">損益兩平試算・再投資現金流推演・白話文領取策略建議</p>
+                    <p class="text-xs text-slate-300 mt-0.5">三階段獨立報酬率推演・勞退每3年動態重算・三方案黃金交叉決策</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-sky-500/20 text-sky-200 border border-sky-400/30">
-                    一般通用預設範例・無個人資料
+                    通用預設範例・無個人資料
                 </span>
             </div>
         </div>
     </header>
 
-    <!-- 快速情境模擬列 -->
+    <!-- 快速情境模擬列 (5組) -->
     <section class="bg-white border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                <div class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                <div class="flex items-center gap-2 text-sm font-semibold text-slate-700 shrink-0">
                     <svg class="w-4 h-4 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"></path>
                     </svg>
-                    <span>一鍵套用常見族群情境：</span>
+                    <span>一鍵套用族群情境：</span>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="applyPreset('standard')" id="btn-preset-standard" class="preset-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 transition">
-                        一般標準上班族 (65歲退・投報4%)
+                    <button onclick="applyPreset('standard')" id="btn-preset-standard" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 transition">
+                        一般標準族 (前4%/專戶2.5%/自投4%)
                     </button>
-                    <button onclick="applyPreset('conservative')" id="btn-preset-conservative" class="preset-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
-                        保守定存族 (不擅投資・投報1.5%)
+                    <button onclick="applyPreset('conservative')" id="btn-preset-conservative" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
+                        保守定存族 (前3%/專戶2.0%/自投1.5%)
                     </button>
-                    <button onclick="applyPreset('aggressive')" id="btn-preset-aggressive" class="preset-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
-                        積極理財族 (ETF配置・投報6.5%)
+                    <button onclick="applyPreset('aggressive')" id="btn-preset-aggressive" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
+                        積極理財族 (前5%/專戶3.0%/自投6.5%)
                     </button>
-                    <button onclick="applyPreset('early')" id="btn-preset-early" class="preset-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
-                        提早退休族 (60歲減給請領)
+                    <button onclick="applyPreset('early')" id="btn-preset-early" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
+                        提早退休族 (55歲→60歲減給-20%)
                     </button>
-                    <button onclick="applyPreset('delayed')" id="btn-preset-delayed" class="preset-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
-                        延後退休族 (68歲展延增額)
+                    <button onclick="applyPreset('delayed')" id="btn-preset-delayed" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
+                        延後退休族 (60歲→70歲展延+20%)
                     </button>
                 </div>
             </div>
@@ -181,18 +193,18 @@
             <!-- 左側欄：參數設定區 (5欄) -->
             <div class="lg:col-span-5 space-y-5">
                 
-                <!-- 卡片 1：基本與共通投資假設 -->
+                <!-- 卡片 1：基本年齡與三階段獨立報酬率 -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
                         <h2 class="text-base font-bold text-navy-900 flex items-center gap-2">
                             <span class="w-6 h-6 rounded-lg bg-navy-900 text-white text-xs flex items-center justify-center font-bold">1</span>
-                            基本年齡與投資報酬假設
+                            年齡與三階段獨立報酬率設定
                         </h2>
-                        <span class="text-xs text-slate-400">共通基準</span>
+                        <span class="text-xs text-slate-400">核心假設</span>
                     </div>
 
                     <div class="space-y-4">
-                        <!-- 目前年齡 (核心參數) -->
+                        <!-- 目前年齡 -->
                         <div>
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-xs font-semibold text-slate-600 flex items-center gap-1">
@@ -213,12 +225,12 @@
                             </div>
                         </div>
 
-                        <!-- 預計請領/退休年齡 -->
-                        <div class="pt-2 border-t border-slate-100">
+                        <!-- 預計退休請領年齡 -->
+                        <div class="pt-2.5 border-t border-slate-100">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-xs font-semibold text-slate-600 flex items-center gap-1.5 flex-wrap">
                                     預計退休請領年齡
-                                    <span class="text-[11px] text-slate-400 font-normal">(法定全額請領：65歲)</span>
+                                    <span class="text-[11px] text-slate-400 font-normal">(法定全額基準：65歲)</span>
                                 </label>
                                 <div class="flex items-center gap-1.5">
                                     <span id="statutoryBadge" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-800">正常請領 0%</span>
@@ -228,30 +240,80 @@
                             <input type="range" id="retireAge" min="50" max="70" value="65" oninput="handleRetireAgeChange()" class="w-full">
                             <div class="flex justify-between text-[11px] text-slate-400 mt-1">
                                 <span>50歲</span>
-                                <span>60歲 (減給上限 -20%)</span>
-                                <span>65歲 (法定全額)</span>
-                                <span>70歲 (展延上限 +20%)</span>
+                                <span>60歲 (-20%)</span>
+                                <span>65歲 (全額)</span>
+                                <span>70歲 (+20%)</span>
                             </div>
                         </div>
 
-                        <!-- 一次領出後自行投資報酬率 -->
-                        <div class="pt-2 border-t border-slate-100">
-                            <div class="flex justify-between items-center mb-1">
-                                <label class="text-xs font-semibold text-slate-600 flex items-center">
-                                    一次領出後「自行投資年化報酬率」
-                                    <span class="tooltip-container ml-1">
-                                        <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                        <span class="tooltip-text">若選擇「一次領」，將整筆退休金投入穩健理財工具（如高股息ETF、債券、定存）的預估年化報酬率。銀行定存約1.5%~1.7%，股債配置約4%~6%。</span>
-                                    </span>
-                                </label>
-                                <span class="text-sm font-bold text-amber-600"><span id="postInvestRateVal">4.0</span> %</span>
+                        <!-- 三階段獨立報酬率區塊 -->
+                        <div class="pt-3 border-t border-slate-100 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-navy-900">三階段年化報酬率獨立設定</span>
+                                <span class="text-[11px] text-slate-400">區分累積期與領取期</span>
                             </div>
-                            <input type="range" id="postInvestRate" min="0" max="10" step="0.5" value="4.0" oninput="updateSimulation()" class="w-full">
-                            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
-                                <span>0% (放活存)</span>
-                                <span>1.5% (定存)</span>
-                                <span>4.0% (穩健)</span>
-                                <span>7.0%+ (積極)</span>
+
+                            <!-- 報酬率 1：退休前累積年化報酬率 -->
+                            <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/70">
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-semibold text-slate-700 flex items-center">
+                                        ① 退休前勞退專戶累積報酬率
+                                        <span class="tooltip-container ml-1">
+                                            <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
+                                            <span class="tooltip-text">推估退休前這段工作期間，新制勞退基金每年分配收益的年化報酬率（近10年平均約 5%~6%，最低保證不低於2年定存利率）。</span>
+                                        </span>
+                                    </label>
+                                    <span class="text-sm font-bold text-sky-700"><span id="lpPreReturnVal">4.0</span> %</span>
+                                </div>
+                                <input type="range" id="lpPreReturn" min="1.0" max="10.0" step="0.5" value="4.0" oninput="updateSimulation()" class="w-full">
+                                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                    <span>1.0% (保底)</span>
+                                    <span>4.0% (穩健)</span>
+                                    <span>6.0% (近十年均)</span>
+                                    <span>10.0%</span>
+                                </div>
+                            </div>
+
+                            <!-- 報酬率 2：退休後勞退專戶預估報酬率 (月領用) -->
+                            <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-200/80">
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-semibold text-emerald-950 flex items-center">
+                                        ② 退休後勞退專戶報酬率 (月領用)
+                                        <span class="tooltip-container ml-1">
+                                            <span class="w-4 h-4 rounded-full bg-emerald-200 text-emerald-800 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
+                                            <span class="tooltip-text">選擇「勞退月領」時，初期依現行法定基準利率 1.1473% 核計，但未領完的餘額仍留在政府專戶參與分紅，勞保局「每3年」會依實際收益重新核算月退金！</span>
+                                        </span>
+                                    </label>
+                                    <span class="text-sm font-bold text-emerald-700"><span id="lpPostReturnVal">2.5</span> %</span>
+                                </div>
+                                <input type="range" id="lpPostReturn" min="1.15" max="6.0" step="0.05" value="2.50" oninput="updateSimulation()" class="w-full slider-emerald">
+                                <div class="flex justify-between text-[10px] text-emerald-700/70 mt-1">
+                                    <span>1.15% (法定基準)</span>
+                                    <span>1.71% (保證收益)</span>
+                                    <span>3.5% (分紅重算)</span>
+                                    <span>6.0%</span>
+                                </div>
+                            </div>
+
+                            <!-- 報酬率 3：退休後個人投資報酬率 (一次領用) -->
+                            <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200/80">
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-semibold text-amber-950 flex items-center">
+                                        ③ 退休後個人投資報酬率 (一次領用)
+                                        <span class="tooltip-container ml-1">
+                                            <span class="w-4 h-4 rounded-full bg-amber-200 text-amber-800 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
+                                            <span class="tooltip-text">選擇「一次領」將退休金領出後，投入個人理財工具（如定存、債券、高股息或市值型ETF）的預估年化報酬率。</span>
+                                        </span>
+                                    </label>
+                                    <span class="text-sm font-bold text-amber-700"><span id="postInvestRateVal">4.0</span> %</span>
+                                </div>
+                                <input type="range" id="postInvestRate" min="0.0" max="10.0" step="0.5" value="4.0" oninput="updateSimulation()" class="w-full slider-amber">
+                                <div class="flex justify-between text-[10px] text-amber-700/70 mt-1">
+                                    <span>0% (活存)</span>
+                                    <span>1.5% (定存)</span>
+                                    <span>4.0% (股債穩健)</span>
+                                    <span>7.0%+ (積極ETF)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,7 +326,7 @@
                             <span class="w-6 h-6 rounded-lg bg-sky-600 text-white text-xs flex items-center justify-center font-bold">2</span>
                             勞保老年給付設定
                         </h2>
-                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-sky-50 text-sky-700">社會保險・活越久領越久</span>
+                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-sky-50 text-sky-700">社會保險・終身抗通膨</span>
                     </div>
 
                     <div class="space-y-4">
@@ -272,10 +334,10 @@
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 flex items-center justify-between gap-3">
                             <div>
                                 <div class="text-xs font-bold text-slate-800 flex items-center">
-                                    98年1月1日前有勞保年資
+                                    民國 98 年 1 月 1 日前有勞保年資
                                     <span class="tooltip-container ml-1">
                                         <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                        <span class="tooltip-text">民國 98 年（2009 年）前曾加保勞保者，方可選擇勞保一次領；之後首次加保者僅能選擇月領。</span>
+                                        <span class="tooltip-text">民國 98 年（2009 年）前曾加保勞保者，方可選擇勞保一次請領（前15年每年1個月、超過15年每年2個月，上限45/50個月）；98年後首次加保且滿15年者，依法僅能請領老年年金（月領）。</span>
                                     </span>
                                 </div>
                                 <p class="text-[11px] text-slate-500 mt-0.5" id="pre98Desc">具備「一次領」與「月領」雙重選擇權</p>
@@ -300,17 +362,17 @@
                             </div>
                             <input type="range" id="liSalary" min="27470" max="45800" step="100" value="45800" oninput="updateSimulation()" class="w-full">
                             <div class="flex justify-between text-[11px] text-slate-400 mt-1">
-                                <span>27,470元 (基本工資)</span>
+                                <span>27,470元</span>
                                 <span>36,300元</span>
                                 <span>45,800元 (最高級距)</span>
                             </div>
                         </div>
 
-                        <!-- 退休時勞保總年資 -->
+                        <!-- 退休時累計勞保年資 -->
                         <div>
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-xs font-semibold text-slate-600 flex items-center">
-                                    退休時勞保總年資
+                                    退休時累計勞保年資
                                     <span class="tooltip-container ml-1">
                                         <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
                                         <span class="tooltip-text">月領年金年資無上限（保越久領越多）；一次請領基數上限為45個月（60歲前最多計30年），60歲以後繼續工作者最多再計5年（上限50個月）。</span>
@@ -318,11 +380,11 @@
                                 </label>
                                 <span class="text-sm font-bold text-slate-800"><span id="liYearsVal">35</span> 年</span>
                             </div>
-                            <input type="range" id="liYears" min="10" max="45" step="1" value="35" oninput="updateSimulation()" class="w-full">
+                            <input type="range" id="liYears" min="15" max="45" step="1" value="35" oninput="updateSimulation()" class="w-full">
                             <div class="flex justify-between text-[11px] text-slate-400 mt-1">
-                                <span>10年 (僅能一次金)</span>
                                 <span>15年 (月領門檻)</span>
-                                <span>30年</span>
+                                <span>25年</span>
+                                <span>35年</span>
                                 <span>45年</span>
                             </div>
                         </div>
@@ -336,7 +398,7 @@
                             <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">3</span>
                             勞退新制個人專戶設定
                         </h2>
-                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">個人專戶・領完為止</span>
+                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">個人專戶・每3年重算</span>
                     </div>
 
                     <div class="space-y-4">
@@ -344,7 +406,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 mb-1">
-                                    目前專戶累積金額 (元)
+                                    目前專戶累積總額 (元)
                                     <span class="tooltip-container ml-1">
                                         <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
                                         <span class="tooltip-text">包含歷年雇主與個人提繳本金，加上勞退基金歷年分配的累積收益。預設為45歲上班族常見均值 120 萬元。</span>
@@ -370,27 +432,12 @@
                                 </label>
                                 <span class="text-sm font-bold text-emerald-700">自提 <span id="lpVoluntaryRateVal">0</span>% (合計 <span id="lpTotalRateVal">6</span>%)</span>
                             </div>
-                            <input type="range" id="lpVoluntaryRate" min="0" max="6" step="1" value="0" oninput="updateSimulation()" class="w-full">
+                            <input type="range" id="lpVoluntaryRate" min="0" max="6" step="1" value="0" oninput="updateSimulation()" class="w-full slider-emerald">
                             <div class="flex justify-between text-[11px] text-slate-400 mt-1">
                                 <span>0% (僅雇主6%)</span>
                                 <span>3%</span>
                                 <span>6% (自提上限・合計12%)</span>
                             </div>
-                        </div>
-
-                        <!-- 退休前勞退基金預估年化收益率 -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <label class="text-xs font-semibold text-slate-600 flex items-center">
-                                    退休前勞退基金預估年化收益
-                                    <span class="tooltip-container ml-1">
-                                        <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                        <span class="tooltip-text">新制勞退基金近10年平均年化收益率約 5%~6%，且享有「不低於當地銀行2年定期存款利率」的最低保證收益機制。</span>
-                                    </span>
-                                </label>
-                                <span class="text-sm font-bold text-slate-800"><span id="lpPreReturnVal">4.0</span> %</span>
-                            </div>
-                            <input type="range" id="lpPreReturn" min="1.5" max="7.0" step="0.5" value="4.0" oninput="updateSimulation()" class="w-full">
                         </div>
                     </div>
                 </div>
@@ -401,18 +448,18 @@
                 
                 <!-- 頁籤切換器 -->
                 <div class="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-3 gap-1">
-                    <button onclick="switchTab('combined')" id="tab-combined" class="tab-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition bg-navy-900 text-white shadow-sm">
-                        綜合總覽 (勞保+勞退)
+                    <button onclick="switchTab('combined')" id="tab-combined" class="tab-btn py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-bold transition bg-navy-900 text-white shadow-sm">
+                        綜合總覽 (三方案對決)
                     </button>
-                    <button onclick="switchTab('li')" id="tab-li" class="tab-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
-                        勞保老年給付分析
+                    <button onclick="switchTab('li')" id="tab-li" class="tab-btn py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
+                        勞保深度分析
                     </button>
-                    <button onclick="switchTab('lp')" id="tab-lp" class="tab-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
-                        勞退新制專戶分析
+                    <button onclick="switchTab('lp')" id="tab-lp" class="tab-btn py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
+                        勞退專戶與報酬率分析
                     </button>
                 </div>
 
-                <!-- 核心數字對比卡片 (動態隨頁籤切換顯示 綜合三方案 / 勞保二方案 / 勞退二方案) -->
+                <!-- 核心數字對比卡片 (三方案並列或單項兩方案並列) -->
                 <div id="cardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
                     <!-- 方案 A：全一次領卡片 -->
                     <div id="card-plan-a" class="bg-gradient-to-br from-amber-50 to-orange-50/60 rounded-2xl border-2 border-amber-200 p-4 relative overflow-hidden flex flex-col justify-between">
@@ -424,12 +471,12 @@
                                 <span id="tag-plan-a" class="text-[11px] font-semibold text-amber-800">資金全自主</span>
                             </div>
                             <div class="mt-2">
-                                <div class="text-[11px] text-slate-600 font-medium" id="label-plan-a-main">退休時一次領取總額</div>
+                                <div class="text-[11px] text-slate-600 font-medium" id="label-plan-a-main">退休首日一次領取總額</div>
                                 <div class="text-2xl xl:text-3xl font-extrabold text-amber-800 tracking-tight mt-0.5">
                                     <span id="val-plan-a-main">5,152,000</span> <span class="text-xs font-bold text-amber-700">元</span>
                                 </div>
                                 <div class="text-[11px] font-semibold text-amber-700 mt-1" id="sub-plan-a-main">
-                                    每月固定領取：0 元/月
+                                    每月固定年金：0 元/月
                                 </div>
                             </div>
                         </div>
@@ -448,12 +495,12 @@
                                 <span id="tag-plan-b" class="text-[11px] font-semibold text-emerald-800">穩定現金流</span>
                             </div>
                             <div class="mt-2">
-                                <div class="text-[11px] text-slate-600 font-medium" id="label-plan-b-main">退休後每月可領總額</div>
+                                <div class="text-[11px] text-slate-600 font-medium" id="label-plan-b-main">退休初期每月領取總額</div>
                                 <div class="text-2xl xl:text-3xl font-extrabold text-emerald-800 tracking-tight mt-0.5">
                                     <span id="val-plan-b-main">34,920</span> <span class="text-xs font-bold text-emerald-700">元/月</span>
                                 </div>
                                 <div class="text-[11px] font-semibold text-emerald-700 mt-1" id="sub-plan-b-main">
-                                    首日一次領取：0 元
+                                    85歲重算預估：0 元/月
                                 </div>
                             </div>
                         </div>
@@ -487,15 +534,15 @@
                     </div>
                 </div>
 
-                <!-- 關鍵決策指標橫幅 (85歲累積總價值對比 & 損益兩平指標) -->
+                <!-- 關鍵決策指標橫幅 -->
                 <div class="bg-navy-900 text-white rounded-2xl p-5 shadow-md">
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-700">
                         <div class="pt-2 sm:pt-0">
                             <div class="text-xs text-slate-300 flex items-center gap-1">
-                                85歲三方案累積總價值比較
+                                85歲累積總價值對決
                                 <span class="tooltip-container">
                                     <span class="w-3.5 h-3.5 rounded-full bg-slate-700 text-slate-300 text-[9px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                    <span class="tooltip-text">計算至國人平均壽命 85 歲時，各方案「累積已領現金＋剩餘投資帳戶餘額」的總價值對決。</span>
+                                    <span class="tooltip-text">計算至 85 歲時，各方案「累積已領取現金＋剩餘個人投資帳戶餘額或專戶餘額」的總價值對比。</span>
                                 </span>
                             </div>
                             <div class="text-lg sm:text-xl font-bold text-indigo-300 mt-1" id="kpiAge85Winner">方案 C 領先</div>
@@ -507,37 +554,44 @@
                                 一次領本金耗盡歲數 (A vs C)
                                 <span class="tooltip-container">
                                     <span class="w-3.5 h-3.5 rounded-full bg-slate-700 text-slate-300 text-[9px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                    <span class="tooltip-text">假設退休後每月花費與「方案B全月領」完全相同，方案A與方案C各自的一次領投資帳戶會在幾歲提領歸零。</span>
+                                    <span class="tooltip-text">假設退休後每月生活花費與「方案B全月領」完全相同，方案A與方案C各自的一次領投資帳戶會在幾歲提領歸零。</span>
                                 </span>
                             </div>
                             <div class="text-lg sm:text-xl font-bold text-amber-400 mt-1" id="kpiDepleteAge">A: 82.5歲 / C: 86.0歲</div>
-                            <div class="text-[11px] text-slate-400 mt-0.5" id="kpiDepleteDesc">年化報酬 4.0%・等額生活費提領</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5" id="kpiDepleteDesc">自投 4.0%・等額生活費提領</div>
                         </div>
 
                         <div class="pt-3 sm:pt-0 sm:pl-4">
                             <div class="text-xs text-slate-300 flex items-center gap-1">
-                                打敗全月領所需年化投報率
+                                打敗政府專戶所需自投報酬率
                                 <span class="tooltip-container">
-                                    <span class="w-4 h-4 rounded-full bg-slate-700 text-slate-300 text-[9px] inline-flex items-center justify-center font-bold cursor-help">?</span>
-                                    <span class="tooltip-text">以支應至 85 歲為基準，一次領資金至少需要創造多少年化投資報酬率，才不會在 85 歲前被生活費提領耗盡。</span>
+                                    <span class="w-3.5 h-3.5 rounded-full bg-slate-700 text-slate-300 text-[9px] inline-flex items-center justify-center font-bold cursor-help">?</span>
+                                    <span class="tooltip-text">在目前設定的「退休後勞退專戶報酬率」下，您自行投資至少要達到多少年化報酬率，才能在平均餘命期內勝過留在政府專戶月領！</span>
                                 </span>
                             </div>
-                            <div class="text-lg sm:text-xl font-bold text-emerald-400 mt-1" id="kpiRequiredRoi">A需 4.8% / C需 1.3%</div>
-                            <div class="text-[11px] text-slate-400 mt-0.5" id="kpiBreakevenSummary">勞保無投資回本：73.2 歲</div>
+                            <div class="text-lg sm:text-xl font-bold text-emerald-400 mt-1" id="kpiRequiredRoi">勞退自投需達 2.5%</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5" id="kpiBreakevenSummary">全一次領撐至85歲需 4.8%</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 視覺化圖表區 -->
+                <!-- 視覺化圖表區 (含三種圖表模式切換) -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                         <div>
                             <h3 class="text-base font-bold text-navy-900" id="chartTitle">三方案累積總價值走勢比較 (退休後至95歲)</h3>
                             <p class="text-xs text-slate-500 mt-0.5" id="chartSubtitle">比較方案A(全一次領複利)、方案B(全月領累積)與方案C(勞保月領累積＋勞退一次領複利)之黃金交叉點</p>
                         </div>
-                        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg self-start shrink-0">
-                            <button onclick="switchChartMode('cumulative')" id="chart-btn-cumulative" class="px-2.5 py-1 rounded-md text-xs font-bold bg-white text-navy-900 shadow-sm transition">累積總價值對比</button>
-                            <button onclick="switchChartMode('balance')" id="chart-btn-balance" class="px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition">一次領本金耗盡曲線</button>
+                        <div class="flex flex-wrap items-center gap-1 bg-slate-100 p-1 rounded-lg self-start shrink-0">
+                            <button onclick="switchChartMode('cumulative')" id="chart-btn-cumulative" class="px-2.5 py-1 rounded-md text-xs font-bold bg-white text-navy-900 shadow-sm transition">
+                                累積總價值走勢
+                            </button>
+                            <button onclick="switchChartMode('balance')" id="chart-btn-balance" class="px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition">
+                                一次領本金耗盡曲線
+                            </button>
+                            <button onclick="switchChartMode('recalc')" id="chart-btn-recalc" class="px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition">
+                                勞退每3年動態重算
+                            </button>
                         </div>
                     </div>
 
@@ -549,7 +603,7 @@
                 <!-- 白話文決策建議與三方案並列比較表 -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-5">
                     <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
-                        <div class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                        <div class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                         </div>
                         <h3 class="text-base font-bold text-navy-900">專屬情境決策分析與三方案策略指南</h3>
@@ -560,49 +614,60 @@
                         <!-- 動態注入 -->
                     </div>
 
-                    <!-- 方案 A vs 方案 B vs 方案 C 並列對照表 -->
+                    <!-- 方案 A vs 方案 B vs 方案 C 並列對照表 (行動裝置響應式卡片化/橫向捲動優化) -->
                     <div class="pt-3 border-t border-slate-100">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">三種領取策略全方位優缺點對照表</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">三種領取策略全方位優缺點與適合族群對照表</h4>
                         <div class="overflow-x-auto rounded-xl border border-slate-200">
-                            <table class="w-full text-left border-collapse text-xs">
+                            <table class="w-full text-left border-collapse text-xs min-w-[540px]">
                                 <thead>
                                     <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
-                                        <th class="p-3 font-bold w-24">比較維度</th>
-                                        <th class="p-3 font-bold text-amber-800 bg-amber-50/70">方案 A：全一次領<br><span class="font-normal text-[11px]">(勞保一次＋勞退一次)</span></th>
-                                        <th class="p-3 font-bold text-emerald-800 bg-emerald-50/70">方案 B：全月領<br><span class="font-normal text-[11px]">(勞保月領＋勞退月領)</span></th>
-                                        <th class="p-3 font-bold text-indigo-800 bg-indigo-50/80">方案 C：黃金混搭 ★<br><span class="font-normal text-[11px]">(勞保月領＋勞退一次)</span></th>
+                                        <th class="p-3 font-bold text-amber-800 bg-amber-50/80 w-1/3">方案 A：全一次領<br><span class="font-normal text-[11px]">(勞保一次＋勞退一次)</span></th>
+                                        <th class="p-3 font-bold text-emerald-800 bg-emerald-50/80 w-1/3">方案 B：全月領<br><span class="font-normal text-[11px]">(勞保月領＋勞退月領)</span></th>
+                                        <th class="p-3 font-bold text-indigo-800 bg-indigo-50/90 w-1/3">方案 C：黃金混搭 ★<br><span class="font-normal text-[11px]">(勞保月領＋勞退一次)</span></th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-200 text-slate-700">
                                     <tr>
-                                        <td class="p-3 font-semibold bg-slate-50/60">資金流動性</td>
-                                        <td class="p-3"><strong>最高</strong>，退休首日全數現金入袋</td>
-                                        <td class="p-3"><strong>最低</strong>，僅能按月/按季領取固定金額</td>
-                                        <td class="p-3 bg-indigo-50/30"><strong>中高</strong>，保有一整筆勞退現金可靈活運用</td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-amber-900 mb-1">① 資金流動性：最高</div>
+                                            退休首日全數現金入袋，可自由運用或一次性還清房貸。
+                                        </td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-emerald-900 mb-1">① 資金流動性：最低</div>
+                                            僅能按月(勞保)與按季(勞退)領取固定現金流，無法臨時動用大筆本金。
+                                        </td>
+                                        <td class="p-3 align-top bg-indigo-50/30">
+                                            <div class="font-bold text-indigo-900 mb-1">① 資金流動性：中高</div>
+                                            手握一整筆勞退現金可作醫療預備金或ETF投資，兼顧靈活性。
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="p-3 font-semibold bg-slate-50/60">長壽與通膨風險</td>
-                                        <td class="p-3 text-rose-700"><strong>高風險</strong>，若投資失利或太長壽可能提早花光</td>
-                                        <td class="p-3 text-emerald-700"><strong>最低風險</strong>，勞保終身領且隨CPI調升，但勞退約85歲領完</td>
-                                        <td class="p-3 bg-indigo-50/30 text-indigo-900"><strong>極佳平衡</strong>，有勞保終身抗通膨打底，不怕活太久沒錢花</td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-rose-700 mb-1">② 長壽與投資風險：高</div>
+                                            需自行承擔市場波動；若報酬率低於門檻或太長壽，本金恐提前歸零。
+                                        </td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-emerald-700 mb-1">② 長壽與投資風險：最低</div>
+                                            勞保終身領且隨CPI調升；勞退享2年定存最低保證收益並每3年重算分紅。
+                                        </td>
+                                        <td class="p-3 align-top bg-indigo-50/30">
+                                            <div class="font-bold text-indigo-900 mb-1">② 長壽與投資風險：極佳平衡</div>
+                                            勞保提供終身抗通膨安全底線，即使勞退資金花完仍有基本生活保障。
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="p-3 font-semibold bg-slate-50/60">投資報酬要求</td>
-                                        <td class="p-3"><strong>壓力大</strong>，整筆大資金需達約 4.5%~5% 以上報酬才划算</td>
-                                        <td class="p-3"><strong>零壓力</strong>，免操心市場波動（惟勞退月領利率僅約1.25%）</td>
-                                        <td class="p-3 bg-indigo-50/30"><strong>壓力極低</strong>，僅需將勞退資金做穩健配置（打敗1.25%即可）</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-3 font-semibold bg-slate-50/60">身故與遺產傳承</td>
-                                        <td class="p-3">剩餘現金全數列入遺產繼承，但一次領需留意退職所得稅</td>
-                                        <td class="p-3">勞保可領遺屬年金/差額金；勞退專戶未領完餘額可由遺屬領回</td>
-                                        <td class="p-3 bg-indigo-50/30">勞保享遺屬保障，勞退已全數領出自主管理或傳承</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-3 font-semibold bg-slate-50/60">最適合族群</td>
-                                        <td class="p-3">投資高手、健康狀況極差（預期餘命短）、急需大筆資金還債/創業</td>
-                                        <td class="p-3">完全不想理財、易被親友借錢詐騙、家族有長壽基因者</td>
-                                        <td class="p-3 bg-indigo-50/30 font-medium text-indigo-950"><strong>大多數一般退休族首選</strong>：既要終身安全感，又想保留醫療備用金與ETF投資部位</td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-slate-800 mb-1">③ 最適合族群</div>
+                                            投資理財高手、健康狀況欠佳（預期餘命較短）、急需大筆資金還債者。
+                                        </td>
+                                        <td class="p-3 align-top">
+                                            <div class="font-bold text-slate-800 mb-1">③ 最適合族群</div>
+                                            完全不想操心投資波動、擔心大筆現金被借走或詐騙、家族有長壽基因者。
+                                        </td>
+                                        <td class="p-3 align-top bg-indigo-50/30 font-medium text-indigo-950">
+                                            <div class="font-bold text-indigo-900 mb-1">③ 最適合族群（多數人首選）</div>
+                                            想要「終身穩定生活費打底」，又希望保留一筆現金自主增值或應付突發醫療者。
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -617,33 +682,34 @@
     <!-- 頁尾免責聲明 -->
     <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
-            <p class="font-semibold text-slate-300">重要聲明與試算基準說明：</p>
-            <p>1. 本網頁內建之預設數值（如年齡、薪資、年資與專戶累積金額）均為一般性模擬範例，未讀取亦不儲存任何個人真實資料。</p>
-            <p>2. 勞保老年年金依現行「最高60個月平均月投保薪資 × 年資 × 1.55%」（或A式擇優）及展延/減給比例計算；一次請領基數依年資前15年每年1個月、超過15年每年2個月（最高45個月，60歲後最多計5年達50個月）計算。</p>
-            <p>3. 勞退新制月退休金係依內政部公告之簡易生命表對應平均餘命及勞動部公告之年金生命表利率（本模擬採用 1.25% 基準）推估。實際可領金額仍以勞動部勞工保險局核定為準。</p>
+            <p class="font-semibold text-slate-300">重要聲明與法規試算基準說明：</p>
+            <p>1. 本模擬器採用一般通用預設參數，未讀取亦不儲存任何個人真實資料。實際可領金額仍以勞動部勞工保險局核定為準。</p>
+            <p>2. 勞保老年年金依現行「最高60個月平均月投保薪資 × 年資 × 1.55%」（或A式擇優）及展延/減給比例（每差1年±4%，上限±20%）計算；一次請領基數依年資前15年每年1個月、超過15年每年2個月（60歲前上限45個月，60歲後最多再計5年達50個月）計算。</p>
+            <p>3. 勞退新制月退休金初期依內政部簡易生命表對應平均餘命及法定年金生命表基準利率（1.1473%）核計，領取期間專戶餘額仍參與勞動基金投資收益分配（享有2年定存最低保證收益），並依法每3年依專戶餘額與最新利率重新核算月退休金。</p>
         </div>
     </footer>
 
     <script>
         // 全局狀態變數
         let currentTab = 'combined'; // 'combined' | 'li' | 'lp'
-        let currentChartMode = 'cumulative'; // 'cumulative' | 'balance'
+        let currentChartMode = 'cumulative'; // 'cumulative' | 'balance' | 'recalc'
         let pensionChart = null;
         let lastSimulationResult = null;
 
         // 台灣內政部簡易生命表平均餘命對照表 (依請領年齡)
         const lifeExpectancyTable = {
-            50: 32, 51: 31, 52: 30, 53: 29, 54: 29,
-            55: 28, 56: 27, 57: 26, 58: 25, 59: 25,
+            50: 33, 51: 32, 52: 31, 53: 30, 54: 30,
+            55: 29, 56: 28, 57: 27, 58: 26, 59: 25,
             60: 24, 61: 23, 62: 22, 63: 21, 64: 21,
             65: 20, 66: 19, 67: 18, 68: 17, 69: 17,
             70: 16
         };
 
-        // 法定全額請領年齡 (自民國115年起統一為 65 歲)
+        // 勞保法定全額請領基準年齡 (65歲) 與 勞退初期核定基準利率 (1.1473%)
         const STATUTORY_RETIRE_AGE = 65;
+        const LP_INITIAL_STATUTORY_RATE = 0.011473;
 
-        // 目前年齡滑桿變更與防呆連動 (確保預計退休年齡不小於目前年齡)
+        // 目前年齡滑桿變更與防呆連動 (確保預計退休年齡 >= 目前年齡)
         function handleCurrentAgeChange() {
             const currentAgeInput = document.getElementById('currentAge');
             const retireAgeInput = document.getElementById('retireAge');
@@ -656,7 +722,7 @@
             updateSimulation();
         }
 
-        // 預計退休年齡滑桿變更與防呆連動 (確保目前年齡不大於預計退休年齡)
+        // 預計退休年齡滑桿變更與防呆連動 (確保目前年齡 <= 預計退休年齡)
         function handleRetireAgeChange() {
             const currentAgeInput = document.getElementById('currentAge');
             const retireAgeInput = document.getElementById('retireAge');
@@ -669,9 +735,8 @@
             updateSimulation();
         }
 
-        // 套用一鍵預設情境
+        // 套用一鍵預設情境 (5組)
         function applyPreset(type) {
-            // 更新按鈕樣式
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.classList.remove('bg-sky-50', 'text-sky-700', 'border-sky-200');
                 btn.classList.add('bg-slate-100', 'text-slate-700', 'border-slate-200');
@@ -685,6 +750,8 @@
             if (type === 'standard') {
                 document.getElementById('currentAge').value = '45';
                 document.getElementById('retireAge').value = '65';
+                document.getElementById('lpPreReturn').value = '4.0';
+                document.getElementById('lpPostReturn').value = '2.50';
                 document.getElementById('postInvestRate').value = '4.0';
                 document.getElementById('hasPre98').checked = true;
                 document.getElementById('liSalary').value = '45800';
@@ -692,34 +759,41 @@
                 document.getElementById('lpCurrentBalance').value = '1200000';
                 document.getElementById('lpMonthlyWage').value = '55000';
                 document.getElementById('lpVoluntaryRate').value = '0';
-                document.getElementById('lpPreReturn').value = '4.0';
             } else if (type === 'conservative') {
                 document.getElementById('currentAge').value = '45';
                 document.getElementById('retireAge').value = '65';
+                document.getElementById('lpPreReturn').value = '3.0';
+                document.getElementById('lpPostReturn').value = '2.00';
                 document.getElementById('postInvestRate').value = '1.5';
                 document.getElementById('hasPre98').checked = true;
             } else if (type === 'aggressive') {
                 document.getElementById('currentAge').value = '45';
                 document.getElementById('retireAge').value = '65';
+                document.getElementById('lpPreReturn').value = '5.0';
+                document.getElementById('lpPostReturn').value = '3.00';
                 document.getElementById('postInvestRate').value = '6.5';
                 document.getElementById('hasPre98').checked = true;
                 document.getElementById('lpVoluntaryRate').value = '6';
             } else if (type === 'early') {
-                document.getElementById('currentAge').value = '45';
+                document.getElementById('currentAge').value = '55';
                 document.getElementById('retireAge').value = '60';
                 document.getElementById('liYears').value = '30';
+                document.getElementById('lpPreReturn').value = '4.0';
+                document.getElementById('lpPostReturn').value = '2.50';
                 document.getElementById('postInvestRate').value = '4.0';
             } else if (type === 'delayed') {
-                document.getElementById('currentAge').value = '45';
-                document.getElementById('retireAge').value = '68';
-                document.getElementById('liYears').value = '38';
+                document.getElementById('currentAge').value = '60';
+                document.getElementById('retireAge').value = '70';
+                document.getElementById('liYears').value = '40';
+                document.getElementById('lpPreReturn').value = '4.0';
+                document.getElementById('lpPostReturn').value = '2.50';
                 document.getElementById('postInvestRate').value = '4.0';
             }
 
             updateSimulation();
         }
 
-        // 切換分頁 (綜合 / 勞保 / 勞退)
+        // 切換分析視角頁籤 (綜合 / 勞保 / 勞退)
         function switchTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -729,22 +803,27 @@
             const active = document.getElementById('tab-' + tab);
             active.classList.remove('text-slate-600', 'hover:bg-slate-100');
             active.classList.add('bg-navy-900', 'text-white', 'shadow-sm');
-            
+
+            // 若切換到「勞退專戶與報酬率分析」頁籤，自動預設展示每3年動態重算或保留目前選擇
+            if (tab === 'lp' && currentChartMode === 'balance') {
+                switchChartMode('recalc');
+                return;
+            }
             renderUI();
         }
 
-        // 切換圖表模式 (累積總額對比 / 本金耗盡曲線)
+        // 切換圖表模式 (累積總價值 / 本金耗盡曲線 / 勞退每3年動態重算)
         function switchChartMode(mode) {
             currentChartMode = mode;
-            const btnCum = document.getElementById('chart-btn-cumulative');
-            const btnBal = document.getElementById('chart-btn-balance');
-            if (mode === 'cumulative') {
-                btnCum.className = 'px-2.5 py-1 rounded-md text-xs font-bold bg-white text-navy-900 shadow-sm transition';
-                btnBal.className = 'px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition';
-            } else {
-                btnBal.className = 'px-2.5 py-1 rounded-md text-xs font-bold bg-white text-navy-900 shadow-sm transition';
-                btnCum.className = 'px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition';
-            }
+            const modes = ['cumulative', 'balance', 'recalc'];
+            modes.forEach(m => {
+                const btn = document.getElementById('chart-btn-' + m);
+                if (m === mode) {
+                    btn.className = 'px-2.5 py-1 rounded-md text-xs font-bold bg-white text-navy-900 shadow-sm transition';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition';
+                }
+            });
             renderChart();
         }
 
@@ -753,11 +832,23 @@
             return Math.round(num).toLocaleString('zh-TW');
         }
 
+        // 輔助函式：依剩餘本金、剩餘月數與年利率計算每月年金金額 (Annuity Payment)
+        function calcMonthlyAnnuity(principal, remainingMonths, annualRate) {
+            if (principal <= 0 || remainingMonths <= 0) return 0;
+            const r = Math.pow(1 + annualRate, 1 / 12) - 1;
+            if (r <= 0.000001) return principal / remainingMonths;
+            return (principal * r) / (1 - Math.pow(1 + r, -remainingMonths));
+        }
+
         // 核心計算引擎
         function calculateAll() {
             const currentAge = parseInt(document.getElementById('currentAge').value) || 45;
             const retireAge = parseInt(document.getElementById('retireAge').value) || 65;
-            const postInvestRate = parseFloat(document.getElementById('postInvestRate').value) / 100;
+            
+            // 三階段獨立年化報酬率
+            const lpPreReturn = parseFloat(document.getElementById('lpPreReturn').value) / 100;       // ① 退休前專戶累積
+            const lpPostReturn = parseFloat(document.getElementById('lpPostReturn').value) / 100;     // ② 退休後專戶分紅 (月領用)
+            const postInvestRate = parseFloat(document.getElementById('postInvestRate').value) / 100; // ③ 退休後個人投資 (一次領用)
             
             const hasPre98 = document.getElementById('hasPre98').checked;
             const liSalary = parseInt(document.getElementById('liSalary').value);
@@ -766,22 +857,22 @@
             const lpCurrentBalance = Math.max(0, parseFloat(document.getElementById('lpCurrentBalance').value) || 0);
             const lpMonthlyWage = Math.max(27470, parseFloat(document.getElementById('lpMonthlyWage').value) || 55000);
             const lpVoluntaryRate = parseInt(document.getElementById('lpVoluntaryRate').value) / 100;
-            const lpPreReturn = parseFloat(document.getElementById('lpPreReturn').value) / 100;
 
             // 更新畫面上的滑桿數值顯示
             document.getElementById('currentAgeVal').textContent = currentAge;
             document.getElementById('retireAgeVal').textContent = retireAge;
+            document.getElementById('lpPreReturnVal').textContent = (lpPreReturn * 100).toFixed(1);
+            document.getElementById('lpPostReturnVal').textContent = (lpPostReturn * 100).toFixed(2);
             document.getElementById('postInvestRateVal').textContent = (postInvestRate * 100).toFixed(1);
             document.getElementById('liSalaryVal').textContent = formatNum(liSalary);
             document.getElementById('liYearsVal').textContent = liYears;
             document.getElementById('lpVoluntaryRateVal').textContent = Math.round(lpVoluntaryRate * 100);
             document.getElementById('lpTotalRateVal').textContent = 6 + Math.round(lpVoluntaryRate * 100);
-            document.getElementById('lpPreReturnVal').textContent = (lpPreReturn * 100).toFixed(1);
 
-            // 1. 計算勞保展延/減給比例 (以法定全額請領年齡 65 歲為基準，最多提前/延後 5 年 ±20%)
+            // 1. 計算勞保展延/減給比例 (統一以 65 歲為法定全額請領基準，最多提前/延後 5 年 ±20%)
             const statutoryAge = STATUTORY_RETIRE_AGE;
             const diffYears = Math.max(-5, Math.min(5, retireAge - statutoryAge));
-            const adjustRatio = diffYears * 0.04; // 每差1年加減4%，上限20%
+            const adjustRatio = diffYears * 0.04;
             
             const badgeEl = document.getElementById('statutoryBadge');
             if (diffYears === 0) {
@@ -797,7 +888,6 @@
             }
 
             // 2. 勞保老年給付試算
-            // 月領：A式 vs B式 擇優
             let liMonthly = 0;
             let liMonthlyEligible = (liYears >= 15);
             if (liMonthlyEligible) {
@@ -807,9 +897,6 @@
                 liMonthly = Math.round(baseMonthly * (1 + adjustRatio));
             }
 
-            // 一次領：基數計算
-            // 98年前有年資者：前15年每年1個月，超過15年每年2個月，上限45個月(60歲後最多再計5年達50個月)
-            // 98年後才加保且未滿15年者：每年1個月(老年一次金)
             let liLumpMonths = 0;
             let liLumpEligible = true;
             if (hasPre98) {
@@ -821,22 +908,16 @@
                 const maxMonths = retireAge > 60 ? Math.min(50, 45 + (retireAge - 60) * 2) : 45;
                 liLumpMonths = Math.min(maxMonths, liLumpMonths);
             } else {
-                if (liYears < 15) {
-                    liLumpMonths = liYears * 1; // 老年一次金
-                } else {
-                    // 98年後初次加保且滿15年，依法僅能月領，但為了讓模擬器仍能顯示「若可一次領的等值比較」，我們標註法規限制並計算等值基數供參考
-                    liLumpEligible = false;
-                    liLumpMonths = Math.min(45, 15 + (liYears - 15) * 2);
-                }
+                liLumpEligible = false;
+                liLumpMonths = Math.min(45, 15 + (liYears - 15) * 2);
             }
             const liLumpSum = Math.round(liSalary * liLumpMonths);
 
             document.getElementById('pre98Desc').textContent = hasPre98 
                 ? '具備「一次領」與「月領」雙重選擇權' 
-                : (liYears >= 15 ? '依法僅能「月領」(下方仍提供等值比較供參考)' : '年資未滿15年，僅能領取「老年一次金」');
+                : '依法僅能請領「老年年金(月領)」，下方仍提供等值基數參考';
 
-            // 3. 勞退新制試算
-            // 勞退月提繳工資級距上限為 150,000 元
+            // 3. 勞退新制退休前累積總額推算 (使用 ① lpPreReturn)
             const lpCappedWage = Math.min(150000, lpMonthlyWage);
             const totalContributionRate = 0.06 + lpVoluntaryRate;
             const monthlyContribution = lpCappedWage * totalContributionRate;
@@ -844,7 +925,6 @@
             const monthsToRetire = yearsToRetire * 12;
             const monthlyPreRate = Math.pow(1 + lpPreReturn, 1/12) - 1;
 
-            // 退休時勞退專戶累積總額
             let lpLumpSum = lpCurrentBalance * Math.pow(1 + lpPreReturn, yearsToRetire);
             if (monthsToRetire > 0) {
                 if (monthlyPreRate > 0) {
@@ -855,24 +935,54 @@
             }
             lpLumpSum = Math.round(lpLumpSum);
 
-            // 勞退月領：依平均餘命與宣告利率 (1.25%) 計算年金現值
+            // 4. 勞退新制「月領」與「每3年動態重算」逐月模擬 (使用 ② lpPostReturn)
             const avgLifeExpectancy = lifeExpectancyTable[retireAge] || 20;
-            const lpAnnuityRate = 0.0125; // 勞動部勞退年金生命表利率約 1.15%~1.5%
-            const monthlyAnnuityRate = Math.pow(1 + lpAnnuityRate, 1/12) - 1;
-            const totalAnnuityMonths = avgLifeExpectancy * 12;
-            
-            let lpMonthly = 0;
-            if (lpLumpSum > 0) {
-                lpMonthly = Math.round(
-                    (lpLumpSum * monthlyAnnuityRate) / (1 - Math.pow(1 + monthlyAnnuityRate, -totalAnnuityMonths))
-                );
+            const totalLpMonths = avgLifeExpectancy * 12;
+            const initialLpMonthly = Math.round(calcMonthlyAnnuity(lpLumpSum, totalLpMonths, LP_INITIAL_STATUTORY_RATE));
+
+            // 模擬勞退月領專戶在退休後每3年(36個月)重算的逐月發放金額陣列 (長度從退休至95歲)
+            const maxSimMonths = (95 - retireAge) * 12;
+            const lpMonthlySchedule = [];     // 實際在 lpPostReturn 下的每月領取額
+            const lpStaticSchedule = [];      // 對照組：若無額外分紅(維持 1.1473% 靜態發放)的每月領取額
+            const lpRemainingPotArr = [];     // 專戶內尚未領完的餘額
+
+            let govPot = lpLumpSum;
+            let currentRecalcMonthly = calcMonthlyAnnuity(govPot, totalLpMonths, LP_INITIAL_STATUTORY_RATE);
+            const monthlyGovActualRate = Math.pow(1 + lpPostReturn, 1 / 12) - 1;
+
+            for (let m = 0; m <= maxSimMonths; m++) {
+                if (m < totalLpMonths) {
+                    // 每滿 36 個月（第3年、第6年、第9年...）依專戶剩餘金額與剩餘月數重新核算月退金
+                    if (m > 0 && m % 36 === 0) {
+                        const remMonths = totalLpMonths - m;
+                        currentRecalcMonthly = calcMonthlyAnnuity(govPot, remMonths, LP_INITIAL_STATUTORY_RATE);
+                    }
+                    lpMonthlySchedule.push(Math.round(currentRecalcMonthly));
+                    lpStaticSchedule.push(initialLpMonthly);
+                    lpRemainingPotArr.push(Math.max(0, Math.round(govPot)));
+
+                    // 當月專戶餘額先產生投資收益，再扣除當月發放之月退金
+                    govPot = govPot * (1 + monthlyGovActualRate) - currentRecalcMonthly;
+                    if (govPot < 0) govPot = 0;
+                } else {
+                    // 超過平均餘命年限後，專戶已領完歸零
+                    lpMonthlySchedule.push(0);
+                    lpStaticSchedule.push(0);
+                    lpRemainingPotArr.push(0);
+                }
             }
 
-            // 封裝三種視角的數據集 (combined, li, lp)
+            // 取得領取期最後階段（或85歲前）的重算後月領金額供卡片展示
+            const lateIndex = Math.min(totalLpMonths - 1, Math.max(0, (85 - retireAge) * 12 - 1));
+            const lpRecalcMonthlyAt85 = lpMonthlySchedule[lateIndex] || initialLpMonthly;
+
             lastSimulationResult = {
+                currentAge,
                 retireAge,
                 statutoryAge,
                 diffYears,
+                lpPreReturn,
+                lpPostReturn,
                 postInvestRate,
                 hasPre98,
                 liSalary,
@@ -883,42 +993,72 @@
                 liLumpMonths,
                 liLumpEligible,
                 lpLumpSum,
-                lpMonthly,
+                initialLpMonthly,
+                lpRecalcMonthlyAt85,
                 avgLifeExpectancy,
                 lpVoluntaryRate,
-                yearsToRetire
+                yearsToRetire,
+                lpMonthlySchedule,
+                lpStaticSchedule,
+                lpRemainingPotArr
             };
 
             renderUI();
         }
 
-        // 計算單一組合方案的時間軸與損益兩平數據
-        // initialLump: 退休首日一次領取本金
-        // baseMonthly: 退休後每月固定領取的年金 (例如方案B為勞保+勞退月領，方案C為勞保月領)
-        // targetSpendMonthly: 每月生活費總基準 (用來衡量一次領帳戶在補足生活費差額下何時耗盡)
-        function simulatePlanTimeline(initialLump, baseMonthly, targetSpendMonthly, retireAge, postInvestRate, isLpOnly = false, lpMaxYears = 20) {
+        // 模擬各方案時間軸與損益兩平數據
+        // mode: 'A' (全一次領) | 'B' (全月領) | 'C' (勞保月領+勞退一次領) | 'LI_LUMP' | 'LI_MONTH' | 'LP_LUMP' | 'LP_MONTH'
+        function simulatePlanTimeline(mode, res) {
             const maxAge = 95;
+            const retireAge = res.retireAge;
+            const totalMonths = (maxAge - retireAge) * 12;
             const ages = [];
-            const cumTotalValueArr = [];     // 累積已領取的年金總額 + 一次領本金含投資複利總價值 (不扣生活費的純資產累積視角)
-            const netWealthWithSpendArr = []; // 若每月固定花掉 targetSpendMonthly 後，帳戶還剩多少錢 (本金耗盡曲線視角)
+            const cumTotalValueArr = [];
+            const netWealthWithSpendArr = [];
 
+            let initialLump = 0;
+            if (mode === 'A') initialLump = res.liLumpSum + res.lpLumpSum;
+            else if (mode === 'C') initialLump = res.lpLumpSum;
+            else if (mode === 'LI_LUMP') initialLump = res.liLumpSum;
+            else if (mode === 'LP_LUMP') initialLump = res.lpLumpSum;
+
+            let investPot = initialLump;       // 純複利增值帳戶 (不扣生活費，用來算累積總資產價值)
+            let spendablePot = initialLump;    // 提領生活費差額後的剩餘本金帳戶 (用來算本金耗盡歲數)
+            let cumAnnuityPaid = 0;
             let depleteAge = null;
             let valueAt85 = 0;
 
-            let investPot = initialLump;       // 純複利增值帳戶 (不提領)
-            let spendablePot = initialLump;    // 提領生活費差額後的剩餘本金帳戶
-            let cumAnnuityPaid = 0;
-
-            const monthlyPostRate = Math.pow(1 + postInvestRate, 1/12) - 1;
-            const totalMonths = (maxAge - retireAge) * 12;
+            const monthlyPostInvestRate = Math.pow(1 + res.postInvestRate, 1 / 12) - 1;
 
             for (let m = 0; m <= totalMonths; m++) {
-                const currentSimAge = retireAge + (m / 12);
+                // 計算當月實際入帳的年金與等額生活費基準
+                let monthAnnuity = 0;
+                let targetMonthlySpend = 0;
+
+                const lpMonthPay = res.lpMonthlySchedule[m] || 0;
+                const liMonthPay = res.liMonthly;
+
+                if (mode === 'A' || mode === 'B' || mode === 'C') {
+                    targetMonthlySpend = liMonthPay + lpMonthPay; // 以方案B全月領(含動態重算)為每月生活花費基準
+                    if (mode === 'B') monthAnnuity = liMonthPay + lpMonthPay;
+                    else if (mode === 'C') monthAnnuity = liMonthPay;
+                } else if (mode === 'LI_LUMP' || mode === 'LI_MONTH') {
+                    targetMonthlySpend = liMonthPay;
+                    if (mode === 'LI_MONTH') monthAnnuity = liMonthPay;
+                } else if (mode === 'LP_LUMP' || mode === 'LP_MONTH') {
+                    targetMonthlySpend = lpMonthPay;
+                    if (mode === 'LP_MONTH') monthAnnuity = lpMonthPay;
+                }
 
                 if (m % 12 === 0) {
                     const ageInt = retireAge + (m / 12);
                     ages.push(ageInt + '歲');
-                    const totalVal = Math.round(cumAnnuityPaid + investPot);
+                    // 若為方案B或LP_MONTH，專戶尚未領完的餘額也屬於個人名下資產價值（身故可由遺屬繼承）
+                    let remainingGovPot = 0;
+                    if (mode === 'B' || mode === 'LP_MONTH') {
+                        remainingGovPot = res.lpRemainingPotArr[m] || 0;
+                    }
+                    const totalVal = Math.round(cumAnnuityPaid + investPot + remainingGovPot);
                     cumTotalValueArr.push(totalVal);
                     netWealthWithSpendArr.push(Math.max(0, Math.round(spendablePot)));
 
@@ -928,16 +1068,11 @@
                 }
 
                 if (m < totalMonths) {
-                    // 判斷當月實際入帳的年金 (若為純勞退月領，超過平均餘命年限後停止發放)
-                    const currentMonthAnnuity = (isLpOnly && m >= lpMaxYears * 12) ? 0 : baseMonthly;
-                    cumAnnuityPaid += currentMonthAnnuity;
+                    cumAnnuityPaid += monthAnnuity;
+                    investPot = investPot * (1 + monthlyPostInvestRate);
 
-                    // 1. 純累積價值視角：一次領帳戶按設定報酬率複利滾存
-                    investPot = investPot * (1 + monthlyPostRate);
-
-                    // 2. 本金耗盡曲線視角：每月需要湊足 targetSpendMonthly 的生活費，不足的部分從一次領投資帳戶提領
-                    const gapToWithdraw = Math.max(0, targetSpendMonthly - currentMonthAnnuity);
-                    spendablePot = spendablePot * (1 + monthlyPostRate) - gapToWithdraw;
+                    const gapToWithdraw = Math.max(0, targetMonthlySpend - monthAnnuity);
+                    spendablePot = spendablePot * (1 + monthlyPostInvestRate) - gapToWithdraw;
 
                     if (spendablePot <= 0 && depleteAge === null && gapToWithdraw > 0) {
                         depleteAge = retireAge + ((m + 1) / 12);
@@ -946,20 +1081,39 @@
                 }
             }
 
-            // 計算「支應至 85 歲且生活水準等同 targetSpendMonthly」所需的最低年化投資報酬率
+            // 計算損益兩平年化報酬率：
+            // 1) 對勞退單項 (LP_LUMP vs LP_MONTH)：一次領出在 avgLifeExpectancy 年內每月提領與「動態重算月退金」完全相同的金額，剛好歸零所需的自投報酬率
+            // 2) 對方案 A / 方案 C：支應至 85 歲且生活水準等同方案 B 所需的最低年化報酬率
             let requiredRoi = 0;
-            const targetYears = Math.max(1, 85 - retireAge);
-            const targetMonths = targetYears * 12;
-            const monthlyGap = Math.max(0, targetSpendMonthly - baseMonthly);
-
-            if (monthlyGap > 0 && initialLump < monthlyGap * targetMonths) {
+            if (mode === 'LP_LUMP') {
+                const lpMonths = res.avgLifeExpectancy * 12;
+                let low = 0, high = 0.25;
+                for (let iter = 0; iter < 45; iter++) {
+                    const mid = (low + high) / 2;
+                    const r = Math.pow(1 + mid, 1 / 12) - 1;
+                    let bal = res.lpLumpSum;
+                    for (let k = 0; k < lpMonths; k++) {
+                        bal = bal * (1 + r) - (res.lpMonthlySchedule[k] || 0);
+                    }
+                    if (bal > 0) high = mid;
+                    else low = mid;
+                }
+                requiredRoi = ((low + high) / 2) * 100;
+            } else if (mode === 'A' || mode === 'C' || mode === 'LI_LUMP') {
+                const targetYears = Math.max(1, 85 - retireAge);
+                const targetMonths = targetYears * 12;
                 let low = 0, high = 0.35;
                 for (let iter = 0; iter < 45; iter++) {
                     const mid = (low + high) / 2;
-                    const r = Math.pow(1 + mid, 1/12) - 1;
+                    const r = Math.pow(1 + mid, 1 / 12) - 1;
                     let bal = initialLump;
                     for (let k = 0; k < targetMonths; k++) {
-                        bal = bal * (1 + r) - monthlyGap;
+                        const lpPay = res.lpMonthlySchedule[k] || 0;
+                        let gap = 0;
+                        if (mode === 'A') gap = res.liMonthly + lpPay;
+                        else if (mode === 'C') gap = lpPay;
+                        else if (mode === 'LI_LUMP') gap = res.liMonthly;
+                        bal = bal * (1 + r) - gap;
                     }
                     if (bal > 0) high = mid;
                     else low = mid;
@@ -1000,22 +1154,23 @@
             const breakdownB = document.getElementById('breakdown-plan-b');
 
             let simA = null, simB = null, simC = null;
-            let noInvBreakevenAge = null;
+            const simLpLump = simulatePlanTimeline('LP_LUMP', res);
+            const noInvLiBreakevenAge = res.liMonthly > 0 ? res.retireAge + (res.liLumpSum / res.liMonthly) / 12 : null;
 
             if (currentTab === 'combined') {
-                // 顯示 3 欄卡片 (方案 A, 方案 B, 方案 C)
                 cardsContainer.className = 'grid grid-cols-1 md:grid-cols-3 gap-3.5';
                 cardPlanC.classList.remove('hidden');
 
                 const totalLumpA = res.liLumpSum + res.lpLumpSum;
-                const totalMonthlyB = res.liMonthly + res.lpMonthly;
+                const initialTotalMonthlyB = res.liMonthly + res.initialLpMonthly;
+                const recalcTotalMonthlyB85 = res.liMonthly + res.lpRecalcMonthlyAt85;
                 const lumpC = res.lpLumpSum;
                 const monthlyC = res.liMonthly;
 
                 // 卡片 A
                 badgeA.textContent = '方案 A：全一次領';
                 tagA.textContent = '資金全自主';
-                labelAMain.textContent = '退休時一次領取總額';
+                labelAMain.textContent = '退休首日一次領取總額';
                 valAMain.textContent = formatNum(totalLumpA);
                 subAMain.textContent = '每月固定年金：0 元/月';
                 breakdownA.innerHTML = `
@@ -1026,12 +1181,12 @@
                 // 卡片 B
                 badgeB.textContent = '方案 B：全月領';
                 tagB.textContent = '穩定現金流';
-                labelBMain.textContent = '退休後每月可領總額';
-                valBMain.textContent = formatNum(totalMonthlyB);
-                subBMain.textContent = '首日一次領取：0 元';
+                labelBMain.textContent = '退休初期每月領取總額';
+                valBMain.textContent = formatNum(initialTotalMonthlyB);
+                subBMain.textContent = `每3年重算後(85歲前)：${formatNum(recalcTotalMonthlyB85)} 元/月`;
                 breakdownB.innerHTML = `
                     <div class="flex justify-between"><span>• 勞保年金 (終身)：</span><span class="font-bold">${formatNum(res.liMonthly)} 元/月</span></div>
-                    <div class="flex justify-between"><span>• 勞退月領 (領${res.avgLifeExpectancy}年)：</span><span class="font-bold">${formatNum(res.lpMonthly)} 元/月</span></div>
+                    <div class="flex justify-between"><span>• 勞退初期 (領${res.avgLifeExpectancy}年)：</span><span class="font-bold">${formatNum(res.initialLpMonthly)} 元/月</span></div>
                 `;
 
                 // 卡片 C
@@ -1042,17 +1197,11 @@
                     <div class="flex justify-between"><span>• 勞保月領 (終身打底)：</span><span class="font-bold">${formatNum(monthlyC)} 元/月</span></div>
                 `;
 
-                // 模擬三方案時間軸 (以方案B全月領金額作為每月基本生活費標竿)
-                simA = simulatePlanTimeline(totalLumpA, 0, totalMonthlyB, res.retireAge, res.postInvestRate, false);
-                simB = simulatePlanTimeline(0, totalMonthlyB, totalMonthlyB, res.retireAge, res.postInvestRate, false);
-                simC = simulatePlanTimeline(lumpC, monthlyC, totalMonthlyB, res.retireAge, res.postInvestRate, false);
-
-                if (res.liMonthly > 0) {
-                    noInvBreakevenAge = res.retireAge + (res.liLumpSum / res.liMonthly) / 12;
-                }
+                simA = simulatePlanTimeline('A', res);
+                simB = simulatePlanTimeline('B', res);
+                simC = simulatePlanTimeline('C', res);
 
             } else if (currentTab === 'li') {
-                // 勞保單項分析：顯示 2 欄卡片 (勞保一次領 vs 勞保月領)
                 cardsContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
                 cardPlanC.classList.add('hidden');
 
@@ -1063,7 +1212,7 @@
                 subAMain.textContent = `核給基數：${res.liLumpMonths} 個月`;
                 breakdownA.innerHTML = `
                     <div class="flex justify-between"><span>• 平均投保薪資：</span><span class="font-bold">${formatNum(res.liSalary)} 元</span></div>
-                    <div class="flex justify-between"><span>• 法規請領資格：</span><span class="font-bold ${res.liLumpEligible ? 'text-amber-700' : 'text-rose-600'}">${res.liLumpEligible ? '符合資格' : '98年後初保僅限月領'}</span></div>
+                    <div class="flex justify-between"><span>• 法規請領資格：</span><span class="font-bold ${res.liLumpEligible ? 'text-amber-700' : 'text-rose-600'}">${res.liLumpEligible ? '符合一次領資格' : '98年後初保僅限月領'}</span></div>
                 `;
 
                 badgeB.textContent = '勞保：老年年金 (月領)';
@@ -1073,48 +1222,41 @@
                 subBMain.textContent = `年齡調整係數：${res.diffYears >= 0 ? '+' : ''}${Math.round(res.diffYears*4)}%`;
                 breakdownB.innerHTML = `
                     <div class="flex justify-between"><span>• 投保年資與薪資：</span><span class="font-bold">${res.liYears}年 / ${formatNum(res.liSalary)}元</span></div>
-                    <div class="flex justify-between"><span>• 保障年限：</span><span class="font-bold">終身領取 (抗通膨)</span></div>
+                    <div class="flex justify-between"><span>• 無投資回本年齡：</span><span class="font-bold">${noInvLiBreakevenAge ? noInvLiBreakevenAge.toFixed(1) + ' 歲' : 'N/A'}</span></div>
                 `;
 
-                simA = simulatePlanTimeline(res.liLumpSum, 0, res.liMonthly, res.retireAge, res.postInvestRate, false);
-                simB = simulatePlanTimeline(0, res.liMonthly, res.liMonthly, res.retireAge, res.postInvestRate, false);
-                if (res.liMonthly > 0) {
-                    noInvBreakevenAge = res.retireAge + (res.liLumpSum / res.liMonthly) / 12;
-                }
+                simA = simulatePlanTimeline('LI_LUMP', res);
+                simB = simulatePlanTimeline('LI_MONTH', res);
 
             } else if (currentTab === 'lp') {
-                // 勞退單項分析：顯示 2 欄卡片 (勞退一次領 vs 勞退月領)
                 cardsContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
                 cardPlanC.classList.add('hidden');
 
                 badgeA.textContent = '勞退：一次領出';
-                tagA.textContent = '全數入袋';
-                labelAMain.textContent = '勞退個人專戶一次領出總額';
+                tagA.textContent = '領出自主投資';
+                labelAMain.textContent = '退休時勞退專戶累積總額';
                 valAMain.textContent = formatNum(res.lpLumpSum);
-                subAMain.textContent = `距離退休複利累積：${res.yearsToRetire} 年`;
+                subAMain.textContent = `退休前複利累積 ${res.yearsToRetire} 年 (投報 ${(res.lpPreReturn*100).toFixed(1)}%)`;
                 breakdownA.innerHTML = `
-                    <div class="flex justify-between"><span>• 個人自提比例：</span><span class="font-bold">${Math.round(res.lpVoluntaryRate*100)}%</span></div>
-                    <div class="flex justify-between"><span>• 資金運用彈性：</span><span class="font-bold">可自主投入ETF或作醫療備用金</span></div>
+                    <div class="flex justify-between"><span>• 個人自提比例：</span><span class="font-bold">${Math.round(res.lpVoluntaryRate*100)}% (合計${6+Math.round(res.lpVoluntaryRate*100)}%)</span></div>
+                    <div class="flex justify-between"><span>• 退休後自投設定：</span><span class="font-bold">${(res.postInvestRate*100).toFixed(1)}% 年化報酬</span></div>
                 `;
 
-                badgeB.textContent = '勞退：月退休金';
-                tagB.textContent = '領完為止';
-                labelBMain.textContent = `勞退月領金額 (分 ${res.avgLifeExpectancy} 年發放)`;
-                valBMain.textContent = formatNum(res.lpMonthly);
-                subBMain.textContent = `發放至 ${res.retireAge + res.avgLifeExpectancy} 歲止`;
+                badgeB.textContent = '勞退：月退休金 (每3年重算)';
+                tagB.textContent = '專戶繼續分紅';
+                labelBMain.textContent = `初期月領金額 (分 ${res.avgLifeExpectancy} 年發放)`;
+                valBMain.textContent = formatNum(res.initialLpMonthly);
+                subBMain.textContent = `每3年重算後(末期)：${formatNum(res.lpRecalcMonthlyAt85)} 元/月`;
                 breakdownB.innerHTML = `
-                    <div class="flex justify-between"><span>• 對應平均餘命：</span><span class="font-bold">${res.avgLifeExpectancy} 年</span></div>
-                    <div class="flex justify-between"><span>• 專戶宣告利率：</span><span class="font-bold">1.25% (固定精算)</span></div>
+                    <div class="flex justify-between"><span>• 對應平均餘命：</span><span class="font-bold">${res.avgLifeExpectancy} 年 (發放至${res.retireAge + res.avgLifeExpectancy}歲)</span></div>
+                    <div class="flex justify-between"><span>• 專戶分紅假設：</span><span class="font-bold">${(res.lpPostReturn*100).toFixed(2)}% (初期基準1.15%)</span></div>
                 `;
 
-                simA = simulatePlanTimeline(res.lpLumpSum, 0, res.lpMonthly, res.retireAge, res.postInvestRate, true, res.avgLifeExpectancy);
-                simB = simulatePlanTimeline(0, res.lpMonthly, res.lpMonthly, res.retireAge, res.postInvestRate, true, res.avgLifeExpectancy);
-                if (res.lpMonthly > 0) {
-                    noInvBreakevenAge = res.retireAge + (res.lpLumpSum / res.lpMonthly) / 12;
-                }
+                simA = simulatePlanTimeline('LP_LUMP', res);
+                simB = simulatePlanTimeline('LP_MONTH', res);
             }
 
-            window.currentSimulations = { simA, simB, simC, noInvBreakevenAge };
+            window.currentSimulations = { simA, simB, simC, simLpLump, noInvLiBreakevenAge };
 
             // 更新 KPI 橫幅
             const winnerEl = document.getElementById('kpiAge85Winner');
@@ -1139,84 +1281,101 @@
                 const depAStr = simA.depleteAge ? `${simA.depleteAge.toFixed(1)}歲` : '95歲+';
                 const depCStr = simC.depleteAge ? `${simC.depleteAge.toFixed(1)}歲` : '95歲+';
                 depleteEl.textContent = `A: ${depAStr} / C: ${depCStr}`;
-                depleteDescEl.textContent = `投報 ${(res.postInvestRate*100).toFixed(1)}%・補足全月領生活費下`;
+                depleteDescEl.textContent = `自投 ${(res.postInvestRate*100).toFixed(1)}%・等額生活費提領下`;
 
-                reqRoiEl.textContent = `A需 ${simA.requiredRoi.toFixed(1)}% / C需 ${simC.requiredRoi.toFixed(1)}%`;
-                beSummaryEl.textContent = noInvBreakevenAge ? `勞保單項無投資回本：${noInvBreakevenAge.toFixed(1)} 歲` : '勞保年資不足15年';
-            } else {
+                reqRoiEl.textContent = `勞退自投需達 ${simLpLump.requiredRoi.toFixed(2)}%`;
+                beSummaryEl.textContent = `全一次領撐至85歲需 ${simA.requiredRoi.toFixed(1)}%`;
+            } else if (currentTab === 'li') {
                 const vA = Math.round(simA.valueAt85 / 10000);
                 const vB = Math.round(simB.valueAt85 / 10000);
-                winnerEl.textContent = vB >= vA ? '月領總價值領先' : '一次領＋複利領先';
+                winnerEl.textContent = vB >= vA ? '勞保月領總價值領先' : '勞保一次領＋複利領先';
                 detailEl.textContent = `一次領複利: ${formatNum(vA)}萬 / 月領累積: ${formatNum(vB)}萬`;
 
                 const depAStr = simA.depleteAge ? `${simA.depleteAge.toFixed(1)} 歲耗盡` : '95歲仍用不完';
                 depleteEl.textContent = depAStr;
-                depleteDescEl.textContent = `投報 ${(res.postInvestRate*100).toFixed(1)}% 下一次領本金歸零歲數`;
+                depleteDescEl.textContent = `自投 ${(res.postInvestRate*100).toFixed(1)}% 下一次領本金歸零歲數`;
 
                 reqRoiEl.textContent = `${simA.requiredRoi.toFixed(1)} %`;
-                beSummaryEl.textContent = noInvBreakevenAge ? `無投資損益兩平：${noInvBreakevenAge.toFixed(1)} 歲` : '無法計算回本';
+                beSummaryEl.textContent = noInvLiBreakevenAge ? `無投資損益兩平：${noInvLiBreakevenAge.toFixed(1)} 歲` : '無法計算回本';
+            } else if (currentTab === 'lp') {
+                const vA = Math.round(simA.valueAt85 / 10000);
+                const vB = Math.round(simB.valueAt85 / 10000);
+                winnerEl.textContent = vA >= vB ? '勞退一次領＋自投領先' : '勞退專戶月領重算領先';
+                detailEl.textContent = `一次領自投: ${formatNum(vA)}萬 / 專戶月領: ${formatNum(vB)}萬`;
+
+                const depAStr = simA.depleteAge ? `${simA.depleteAge.toFixed(1)} 歲耗盡` : `${res.retireAge + res.avgLifeExpectancy}歲後仍有餘額`;
+                depleteEl.textContent = depAStr;
+                depleteDescEl.textContent = `比對專戶月領發放至 ${res.retireAge + res.avgLifeExpectancy} 歲`;
+
+                reqRoiEl.textContent = `${simLpLump.requiredRoi.toFixed(2)} %`;
+                beSummaryEl.textContent = `對應政府專戶預估報酬率 ${(res.lpPostReturn*100).toFixed(2)}%`;
             }
 
             // 更新決策建議文字
-            renderAdviceText(res, simA, simB, simC, noInvBreakevenAge);
+            renderAdviceText(res, simA, simB, simC, simLpLump, noInvLiBreakevenAge);
 
             // 更新圖表
             renderChart();
         }
 
         // 生成白話文決策建議
-        function renderAdviceText(res, simA, simB, simC, noInvBreakevenAge) {
+        function renderAdviceText(res, simA, simB, simC, simLpLump, noInvLiBreakevenAge) {
             const box = document.getElementById('dynamicAdviceBox');
-            const userRoi = res.postInvestRate * 100;
+            const userSelfRoi = res.postInvestRate * 100;
+            const govPostRoi = res.lpPostReturn * 100;
+            const lpBreakevenRoi = simLpLump.requiredRoi;
             let html = '';
 
-            if (!res.hasPre98 && res.liYears >= 15) {
+            if (!res.hasPre98) {
                 html += `
                     <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900">
-                        <strong>📌 法規資格提醒：</strong>您設定「98年1月1日前無勞保年資」且年資滿15年，依《勞工保險條例》規定，您的<strong>勞保只能選擇「月領（老年年金）」</strong>，不具備一次領資格。因此對您而言，實務上就是在<strong>「方案 B（全月領）」</strong>與<strong>「方案 C（勞保月領＋勞退一次領）」</strong>之間做選擇！
+                        <strong>📌 法規資格提醒：</strong>您設定「民國 98 年 1 月 1 日前無勞保年資」，依《勞工保險條例》規定，年資滿 15 年者<strong>勞保只能請領「老年年金（月領）」</strong>，不具備一次領資格。因此對您而言，實務上的最佳決策就是在<strong>「方案 B（全月領）」</strong>與<strong>「方案 C（勞保月領＋勞退一次領）」</strong>之間做選擇！
                     </div>
                 `;
             }
 
             if (currentTab === 'combined' && simC) {
                 const reqRoiA = simA.requiredRoi;
-                const reqRoiC = simC.requiredRoi;
                 const depAStr = simA.depleteAge ? `${simA.depleteAge.toFixed(1)} 歲` : '95 歲以上';
                 const depCStr = simC.depleteAge ? `${simC.depleteAge.toFixed(1)} 歲` : '95 歲以上';
 
                 html += `
                     <p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-xs mr-1">1. 為什麼「方案 C（勞保月＋勞退一次）」常是最佳解？</span>
-                        勞保是社會保險，只要活著就<strong>終身發放且隨物價調升</strong>（本試算無投資僅需活過 <strong>${noInvBreakevenAge ? noInvBreakevenAge.toFixed(1) : '73.2'} 歲</strong>即回本）；而勞退新制是個人專戶，月領僅按 <strong>1.25%</strong> 宣告利率精算發放到 <strong>${res.retireAge + res.avgLifeExpectancy} 歲</strong>。採用<strong>方案 C</strong>，您每月仍有 <strong>${formatNum(res.liMonthly)} 元</strong>終身保底收入，同時手握 <strong>${formatNum(res.lpLumpSum)} 元</strong>勞退現金可自主理財或作為醫療備用金！
+                        <span class="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-xs mr-1">1. 勞退月領 vs. 勞退一次領的關鍵勝負線</span>
+                        在您設定「退休後勞退專戶預估報酬率為 <strong>${govPostRoi.toFixed(2)}%</strong>」的情況下，勞退月領初期為 <strong>${formatNum(res.initialLpMonthly)} 元/月</strong>，但因為專戶餘額仍參與基金分紅並<strong>每 3 年重算一次</strong>，領取末期月退金會成長至 <strong>${formatNum(res.lpRecalcMonthlyAt85)} 元/月</strong>。這代表您若把勞退一次領出來自己投資，年化報酬率至少要達到 <strong>${lpBreakevenRoi.toFixed(2)}%</strong> 才能打敗留在政府專戶月領！
                     </p>
                     <p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-xs mr-1">2. 投資門檻與本金續航力對比</span>
-                        若想維持與「方案 B 全月領（${formatNum(res.liMonthly + res.lpMonthly)} 元/月）」相同的生活水準至 85 歲：
-                        <strong>方案 A（全一次領）</strong>需要高達 <strong>${reqRoiA.toFixed(1)}%</strong> 的年化報酬率（在目前 ${userRoi.toFixed(1)}% 報酬率下，本金會在 <strong>${depAStr}</strong> 用光）；
-                        而<strong>方案 C（僅勞退一次領）</strong>因為有勞保月領幫忙分擔大部分生活費，勞退資金只需達到 <strong>${reqRoiC.toFixed(1)}%</strong> 報酬率就能撐到 85 歲（在目前 ${userRoi.toFixed(1)}% 報酬率下可撐到 <strong>${depCStr}</strong>）！
+                        <span class="inline-block px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-xs mr-1">2. 三方案抗長壽與現金流綜合比較</span>
+                        勞保年金只要活著就終身發放（無投資僅需活過 <strong>${noInvLiBreakevenAge ? noInvLiBreakevenAge.toFixed(1) : '73.2'} 歲</strong>即回本）。若採用<strong>「方案 C（勞保月領＋勞退一次領）」</strong>，您每月有 <strong>${formatNum(res.liMonthly)} 元</strong>終身保底收入，同時手握 <strong>${formatNum(res.lpLumpSum)} 元</strong>現金可自主配置（在目前 ${userSelfRoi.toFixed(1)}% 自投報酬率下，本金可撐到 <strong>${depCStr}</strong>，遠優於全一次領方案 A 的 <strong>${depAStr}</strong>）。
                     </p>
                 `;
 
-                if (userRoi <= 1.5) {
+                if (userSelfRoi >= lpBreakevenRoi) {
                     html += `
-                        <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950">
-                            <strong>💡 針對您的「低風險/定存偏好」建議：</strong>由於您設定的退休後投資報酬率為 <strong>${userRoi.toFixed(1)}%</strong>（接近銀行定存），若您完全不想承擔投資風險或擔心大筆現金被挪用，選擇<strong>「方案 B（全月領）」</strong>會是最安心的選擇。
+                        <div class="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-950">
+                            <strong>💡 專屬決策建議（推薦方案 C）：</strong>您預期的個人投資報酬率（<strong>${userSelfRoi.toFixed(1)}%</strong>）高於打敗政府專戶所需的門檻（<strong>${lpBreakevenRoi.toFixed(2)}%</strong>）。建議選擇<strong>「方案 C（勞保月領 ＋ 勞退一次領）」</strong>，讓勞保幫您鎖住終身生活底線，同時把勞退資金領出投入穩健股債或ETF創造超額報酬！
                         </div>
                     `;
                 } else {
                     html += `
-                        <div class="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-950">
-                            <strong>💡 針對您的「穩健理財偏好」建議：</strong>在年化報酬率 <strong>${userRoi.toFixed(1)}%</strong> 的假設下，<strong>「方案 C（勞保月領 ＋ 勞退一次領）」</strong>兼顧了終身抗通膨安全網與資產增值空間，是進可攻、退可守的理想配置。
+                        <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950">
+                            <strong>💡 專屬決策建議（推薦方案 B）：</strong>您設定的個人投資報酬率（<strong>${userSelfRoi.toFixed(1)}%</strong>）低於政府專戶每3年動態重算的損益兩平點（<strong>${lpBreakevenRoi.toFixed(2)}%</strong>）。建議直接選擇<strong>「方案 B（全月領）」</strong>，把勞退留在政府專戶享最低保證收益與每3年分紅重算，省心又穩健！
                         </div>
                     `;
                 }
+            } else if (currentTab === 'lp') {
+                html += `
+                    <p>
+                        <span class="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-xs mr-1">勞退專戶報酬率敏感度解析</span>
+                        勞保局計算初期月退休金時，是依現行法定基準利率 <strong>1.15%（1.1473%）</strong> 計算（本試算初期為 <strong>${formatNum(res.initialLpMonthly)} 元/月</strong>），但未領完的餘額仍留在專戶參與分紅，<strong>每 3 年檢討重算一次</strong>。在您設定的 <strong>${govPostRoi.toFixed(2)}%</strong> 專戶報酬率下，重算後末期月領可提升至 <strong>${formatNum(res.lpRecalcMonthlyAt85)} 元/月</strong>。因此，自行投資的年化報酬率必須超過 <strong>${lpBreakevenRoi.toFixed(2)}%</strong>，一次領才會在財務上勝過月領。
+                    </p>
+                `;
             } else {
-                const reqRoiA = simA.requiredRoi;
                 const depAStr = simA.depleteAge ? `${simA.depleteAge.toFixed(1)} 歲` : '95 歲以上';
                 html += `
                     <p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold text-xs mr-1">單項制度深度解析</span>
-                        在此單項制度下，不計利息的損益兩平年齡為 <strong>${noInvBreakevenAge ? noInvBreakevenAge.toFixed(1) : 'N/A'} 歲</strong>。若選擇一次領出，在您設定的 <strong>${userRoi.toFixed(1)}%</strong> 年化報酬率下，等額提領生活費可支應至 <strong>${depAStr}</strong>（若要支應至 85 歲，年化報酬率門檻為 <strong>${reqRoiA.toFixed(1)}%</strong>）。
+                        <span class="inline-block px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold text-xs mr-1">勞保老年給付深度解析</span>
+                        勞保一次領基數為 <strong>${res.liLumpMonths} 個月</strong>（共 <strong>${formatNum(res.liLumpSum)} 元</strong>），月領為 <strong>${formatNum(res.liMonthly)} 元/月</strong>。不計投資收益時，只要活過 <strong>${noInvLiBreakevenAge ? noInvLiBreakevenAge.toFixed(1) : 'N/A'} 歲</strong>月領就回本；若在您設定的 <strong>${userSelfRoi.toFixed(1)}%</strong> 自投報酬率下，一次領本金可支應等額生活費至 <strong>${depAStr}</strong>（要撐到 85 歲需達 <strong>${simA.requiredRoi.toFixed(1)}%</strong> 報酬率）。
                     </p>
                 `;
             }
@@ -1226,8 +1385,9 @@
 
         // 繪製 Chart.js 圖表
         function renderChart() {
-            if (!window.currentSimulations) return;
+            if (!window.currentSimulations || !lastSimulationResult) return;
             const { simA, simB, simC } = window.currentSimulations;
+            const res = lastSimulationResult;
             const ctx = document.getElementById('pensionChart').getContext('2d');
 
             if (pensionChart) {
@@ -1236,16 +1396,19 @@
 
             const titleEl = document.getElementById('chartTitle');
             const subEl = document.getElementById('chartSubtitle');
-            const roiStr = (lastSimulationResult.postInvestRate * 100).toFixed(1);
+            const selfRoiStr = (res.postInvestRate * 100).toFixed(1);
+            const govRoiStr = (res.lpPostReturn * 100).toFixed(2);
 
+            let labels = simA.ages;
             let datasets = [];
+
             if (currentChartMode === 'cumulative') {
                 if (currentTab === 'combined' && simC) {
                     titleEl.textContent = '三方案累積總價值走勢比較 (退休後至95歲)';
-                    subEl.textContent = `比較方案A(全一次領複利)、方案B(全月領累積)與方案C(勞保月領累積＋勞退一次領複利) [假設年化投報 ${roiStr}%]`;
+                    subEl.textContent = `方案A(自投${selfRoiStr}%) vs 方案B(專戶分紅${govRoiStr}%每3年重算) vs 方案C(勞保終身＋勞退自投${selfRoiStr}%)`;
                     datasets = [
                         {
-                            label: '方案 C：勞保月領累積 ＋ 勞退一次領複利 (混搭)',
+                            label: `方案 C：勞保月領累積 ＋ 勞退一次領複利 (${selfRoiStr}%)`,
                             data: simC.cumTotalValueArr,
                             borderColor: '#4f46e5',
                             backgroundColor: 'rgba(79, 70, 229, 0.08)',
@@ -1255,7 +1418,7 @@
                             pointRadius: 2.5
                         },
                         {
-                            label: '方案 B：全月領累積實領總額 (勞保＋勞退月領)',
+                            label: `方案 B：全月領累積總價值 (含專戶${govRoiStr}%每3年重算)`,
                             data: simB.cumTotalValueArr,
                             borderColor: '#059669',
                             backgroundColor: 'rgba(5, 150, 105, 0.08)',
@@ -1265,7 +1428,7 @@
                             pointRadius: 2
                         },
                         {
-                            label: `方案 A：全一次領自主投資複利總價值 (${roiStr}%)`,
+                            label: `方案 A：全一次領自主投資複利總價值 (${selfRoiStr}%)`,
                             data: simA.cumTotalValueArr,
                             borderColor: '#d97706',
                             backgroundColor: 'transparent',
@@ -1277,10 +1440,10 @@
                     ];
                 } else {
                     titleEl.textContent = '累積實領金額 vs. 一次領再投資總價值走勢 (至95歲)';
-                    subEl.textContent = `比較「月領累積實領總額」與「一次領自主投資複利總價值 (${roiStr}%)」`;
+                    subEl.textContent = `比較「月領累積總價值」與「一次領自主投資複利總價值 (${selfRoiStr}%)」`;
                     datasets = [
                         {
-                            label: '月領方案：累積實領總額',
+                            label: '月領方案：累積實領總價值',
                             data: simB.cumTotalValueArr,
                             borderColor: '#059669',
                             backgroundColor: 'rgba(5, 150, 105, 0.1)',
@@ -1290,7 +1453,7 @@
                             pointRadius: 2
                         },
                         {
-                            label: `一次領方案：自主投資複利總價值 (${roiStr}%)`,
+                            label: `一次領方案：自主投資複利總價值 (${selfRoiStr}%)`,
                             data: simA.cumTotalValueArr,
                             borderColor: '#d97706',
                             backgroundColor: 'transparent',
@@ -1301,13 +1464,13 @@
                         }
                     ];
                 }
-            } else {
+            } else if (currentChartMode === 'balance') {
                 if (currentTab === 'combined' && simC) {
                     titleEl.textContent = '一次領投資帳戶「剩餘本金餘額」耗盡曲線 (方案 A vs 方案 C)';
-                    subEl.textContent = `假設退休後每月花費與「方案B全月領」完全相同，觀察方案A與方案C的投資本金何時歸零 (投報 ${roiStr}%)`;
+                    subEl.textContent = `假設退休後每月花費與「方案B全月領」完全相同，觀察方案A與方案C的本金何時歸零 (自投 ${selfRoiStr}%)`;
                     datasets = [
                         {
-                            label: '方案 C：勞退一次領投資帳戶剩餘本金 (有勞保月領分擔生活費)',
+                            label: `方案 C：勞退一次領投資帳戶剩餘本金 (有勞保月領分擔生活費)`,
                             data: simC.netWealthWithSpendArr,
                             borderColor: '#4f46e5',
                             backgroundColor: 'rgba(79, 70, 229, 0.14)',
@@ -1317,7 +1480,7 @@
                             pointRadius: 2.5
                         },
                         {
-                            label: '方案 A：全一次領投資帳戶剩餘本金 (無任何月領收入)',
+                            label: `方案 A：全一次領投資帳戶剩餘本金 (無任何月領收入)`,
                             data: simA.netWealthWithSpendArr,
                             borderColor: '#d97706',
                             backgroundColor: 'rgba(217, 119, 6, 0.10)',
@@ -1330,10 +1493,10 @@
                     ];
                 } else {
                     titleEl.textContent = '一次領方案：每月提領等額生活費後的「剩餘本金餘額」';
-                    subEl.textContent = `顯示若將一次領資金拿去投資並每月提領等額生活費，本金何時會歸零 (投報 ${roiStr}%)`;
+                    subEl.textContent = `顯示若將一次領資金拿去投資並每月提領等額生活費，本金何時會歸零 (自投 ${selfRoiStr}%)`;
                     datasets = [
                         {
-                            label: `一次領剩餘資產餘額 (年化報酬 ${roiStr}%)`,
+                            label: `一次領剩餘資產餘額 (年化報酬 ${selfRoiStr}%)`,
                             data: simA.netWealthWithSpendArr,
                             borderColor: '#0284c7',
                             backgroundColor: 'rgba(2, 132, 199, 0.15)',
@@ -1344,12 +1507,51 @@
                         }
                     ];
                 }
+            } else if (currentChartMode === 'recalc') {
+                // 模式 3：勞退月領「每 3 年動態重算」階梯走勢圖
+                titleEl.textContent = '勞退新制月退休金「每 3 年動態重算」階梯變化圖';
+                subEl.textContent = `展示在專戶預估報酬率 ${govRoiStr}% 下，每滿3年依專戶餘額重新核算月退金的階梯成長效果（對比靜態1.15%基準）`;
+                const recalcAges = [];
+                const recalcMonthlyArr = [];
+                const staticMonthlyArr = [];
+                const maxYearsShow = Math.min(30, res.avgLifeExpectancy + 3);
+                for (let y = 0; y <= maxYearsShow; y++) {
+                    recalcAges.push((res.retireAge + y) + '歲');
+                    const idx = y * 12;
+                    recalcMonthlyArr.push(res.lpMonthlySchedule[idx] || 0);
+                    staticMonthlyArr.push(res.lpStaticSchedule[idx] || 0);
+                }
+                labels = recalcAges;
+                datasets = [
+                    {
+                        label: `動態重算月退金 (專戶報酬率 ${govRoiStr}%・每3年階梯調整)`,
+                        data: recalcMonthlyArr,
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.14)',
+                        borderWidth: 3,
+                        stepped: true,
+                        fill: true,
+                        pointRadius: 3
+                    },
+                    {
+                        label: '對照組：若無額外分紅 (僅按法定基準 1.15% 靜態發放)',
+                        data: staticMonthlyArr,
+                        borderColor: '#94a3b8',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        stepped: true,
+                        pointRadius: 0
+                    }
+                ];
             }
+
+            const isRecalcChart = (currentChartMode === 'recalc');
 
             pensionChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: simA.ages,
+                    labels: labels,
                     datasets: datasets
                 },
                 options: {
@@ -1376,6 +1578,9 @@
                             callbacks: {
                                 label: function(context) {
                                     let val = context.parsed.y;
+                                    if (isRecalcChart) {
+                                        return `${context.dataset.label}: ${formatNum(val)} 元/月`;
+                                    }
                                     return `${context.dataset.label}: ${(val / 10000).toFixed(1)} 萬元 (${formatNum(val)} 元)`;
                                 }
                             }
@@ -1395,6 +1600,9 @@
                             ticks: {
                                 font: { family: '"Noto Sans TC", sans-serif', size: 11 },
                                 callback: function(value) {
+                                    if (isRecalcChart) {
+                                        return formatNum(value) + ' 元';
+                                    }
                                     return (value / 10000) + ' 萬';
                                 }
                             }
